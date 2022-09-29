@@ -8,9 +8,8 @@ import { ModalService } from 'src/app/service/modal.service';
 })
 export class ModalComponent implements OnInit {
   @Input() modalID = ''
+
   constructor(public modal: ModalService) {
-
-
   }
 
   ngOnInit(): void {
