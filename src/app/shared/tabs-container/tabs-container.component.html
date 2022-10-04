@@ -2,7 +2,11 @@
 <ul class="flex flex-wrap mb-4">
       <li *ngFor="let tab of tabs" class="flex-auto text-center">
             <a class="block rounded py-3 px-4 transition hover:text-white text-white
-bg-indigo-400" href="#" (click)="selectTab(tab)">{{ tab.tabTitle }}</a>
+bg-indigo-400" href="#" (click)="selectTab(tab)" [ngClass]="{
+     'hover:text-indigo:400': !tab.isActive,
+      'hover:text-white text-white bg-indigo-400': tab.isActive
+     }">{{ tab.tabTitle
+                  }}</a>
       </li>
 
 </ul>
