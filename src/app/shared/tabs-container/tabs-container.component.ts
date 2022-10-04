@@ -16,4 +16,6 @@ export class TabsContainerComponent implements AfterContentInit {
     console.log(this.tabs);
   }
 
+
+
 }
