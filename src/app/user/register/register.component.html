@@ -4,12 +4,26 @@
             <label class="inline-block mb-2">Name</label>
             <input [formControl]="registgerForm.controls['name']" type="text" class="block w-full py-1.5 px-3 text-gray-200 border border-gray-400 transition
 duration-500 focus:outline-none rounded bg-transparent focus:border-indigo-400" placeholder="Enter Name" />
+
+            <p *ngIf="registgerForm.controls.name.errors?.['required']" class="text-red-400">
+                  This flied is required
+            </p>
+
+            <p *ngIf="registgerForm.controls.name.errors?.['minlength']" class="text-red-400">
+                  The name you entered is
+                  {{ registgerForm.controls.name.errors?.['minlength'].actualLength}}
+                  characters long.
+                  it must be at least
+                  {{registgerForm.controls.name.errors?.['minlength'].requiredLength }}
+            </p>
       </div>
       <!-- Email -->
       <div class="mb-3">
             <label class="inline-block mb-2">Email</label>
             <input type="email" class="block w-full py-1.5 px-3 text-gray-200 border border-gray-400 transition
 duration-500 focus:outline-none rounded bg-transparent focus:border-indigo-400" placeholder="Enter Email" />
+
+
       </div>
       <!-- Age -->
       <div class="mb-3">
