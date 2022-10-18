@@ -1,8 +1,8 @@
-<form>
+<form [formGroup]="registgerForm">
       <!-- Name -->
       <div class="mb-3">
             <label class="inline-block mb-2">Name</label>
-            <input type="text" class="block w-full py-1.5 px-3 text-gray-200 border border-gray-400 transition
+            <input [formControl]="registgerForm.controls['name']" type="text" class="block w-full py-1.5 px-3 text-gray-200 border border-gray-400 transition
 duration-500 focus:outline-none rounded bg-transparent focus:border-indigo-400" placeholder="Enter Name" />
       </div>
       <!-- Email -->
