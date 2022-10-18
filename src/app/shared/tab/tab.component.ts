@@ -14,4 +14,8 @@ export class TabComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  preventDeafult($e: Event) {
+    $e.preventDefault()
+  }
+
 }

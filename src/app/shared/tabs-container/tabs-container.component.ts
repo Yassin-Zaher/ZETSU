@@ -24,12 +24,16 @@ export class TabsContainerComponent implements AfterContentInit {
   }
 
 
-  selectTab(tab: TabComponent) {
+  selectTab(tab: TabComponent): boolean {
     this.tabs.forEach(tab => {
       tab.isActive = false
     })
 
     tab.isActive = true
+    /* return false for preventing the default behavior 
+    alternatively you can use the event.preventDefault
+    */
+    return false
   }
 
 
