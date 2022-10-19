@@ -14,20 +14,17 @@
       <!-- Age -->
       <div class="mb-3">
             <label class="inline-block mb-2">Age</label>
-            <input type="number" class="block w-full py-1.5 px-3 text-gray-200 border border-gray-400 transition
-duration-500 focus:outline-none rounded bg-transparent focus:border-indigo-400" />
+            <app-input [control]="age" placeholder="Enter your age.." type="number"></app-input>
       </div>
       <!-- Password -->
       <div class="mb-3">
             <label class="inline-block mb-2">Password</label>
-            <input type="password" class="block w-full py-1.5 px-3 text-gray-200 border border-gray-400 transition
-duration-500 focus:outline-none rounded bg-transparent focus:border-indigo-400" placeholder="Password" />
+            <app-input [control]="password" placeholder="Enter a password.." type="password"></app-input>
       </div>
       <!-- Confirm Password -->
       <div class="mb-3">
             <label class="inline-block mb-2">Confirm Password</label>
-            <input type="password" class="block w-full py-1.5 px-3 text-gray-200 border border-gray-400 transition
-duration-500 focus:outline-none rounded bg-transparent focus:border-indigo-400" placeholder="Confirm Password" />
+            <app-input [control]="confirm_password" placeholder="Confirm password.." type="password"></app-input>
       </div>
       <!-- Phone Number -->
       <div class="mb-3">

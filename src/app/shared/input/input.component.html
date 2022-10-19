@@ -4,6 +4,12 @@ duration-500 focus:outline-none rounded bg-transparent focus:border-indigo-400" 
 
 <ng-container *ngIf="control.touched && control.dirty">
 
+      <p class="text-red-400" *ngIf="control.errors?.['pattern']">
+            Passwords must: <br>
+            - have at least 8 characters <br>
+            - contain at least 1 uppercase letter, 1 lowercase letter, and 1 number
+      </p>
+
       <p *ngIf="control.errors?.['required']" class="text-red-400">
             This flied is required
       </p>
@@ -13,11 +19,15 @@ duration-500 focus:outline-none rounded bg-transparent focus:border-indigo-400" 
             {{ control.errors?.['minlength'].actualLength}}
             characters long.
             it must be at least
-            {{control.errors?.['minlength'].requiredLength }}
+            {{ control.errors?.['minlength'].requiredLength }}
       </p>
 
       <p *ngIf="control.errors?.['email']" class="text-red-400">
             Enter a valid email.
+      </p>
+
+      <p *ngIf="control.errors?.['min'] || control.errors?.['max']" class="text-red-400">
+            Invalid age
       </p>
 
 </ng-container>
