@@ -1,0 +1,19 @@
+<input [formControl]="control" type="text" class="block w-full py-1.5 px-3 text-gray-200 border border-gray-400 transition
+duration-500 focus:outline-none rounded bg-transparent focus:border-indigo-400" placeholder="Enter Name" />
+
+
+<ng-container *ngIf="control.touched && control.dirty">
+
+      <p *ngIf="control.errors?.['required']" class="text-red-400">
+            This flied is required
+      </p>
+
+      <p *ngIf="control.errors?.['minlength']" class="text-red-400">
+            The name you entered is
+            {{ control.errors?.['minlength'].actualLength}}
+            characters long.
+            it must be at least
+            {{control.errors?.['minlength'].requiredLength }}
+      </p>
+
+</ng-container>
