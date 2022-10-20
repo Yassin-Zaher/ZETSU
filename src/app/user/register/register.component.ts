@@ -16,7 +16,10 @@ export class RegisterComponent {
     [Validators.required,
     Validators.pattern(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/gm)])
   confirm_password = new FormControl('', [Validators.required])
-  phoneNumber = new FormControl('')
+  phoneNumber = new FormControl('',
+    [Validators.required,
+    Validators.maxLength(13),
+    Validators.minLength(13)])
 
 
   /* After creating new instance we'll be able
