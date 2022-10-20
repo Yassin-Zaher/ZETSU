@@ -21,6 +21,7 @@ import { AlertComponent } from './alert/alert.component';
   imports: [
     CommonModule,
     ReactiveFormsModule,
+
     NgxMaskModule.forRoot()
   ],
   exports: [

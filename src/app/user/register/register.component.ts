@@ -22,7 +22,7 @@ export class RegisterComponent {
 
 
   /* After creating new instance we'll be able
-  to retrieve info related to the form and controle it*/
+  to retrieve info related to the form and controle it */
   registgerForm = new FormGroup({
     name: this.name,
     age: this.age,
