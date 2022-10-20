@@ -8,7 +8,6 @@ import { FormGroup, FormControl, Validators, AbstractControl } from "@angular/fo
 })
 export class RegisterComponent {
 
-
   name = new FormControl('', [Validators.required, Validators.minLength(3)])
   email = new FormControl('', [Validators.required, Validators.email])
   age = new FormControl('', [Validators.required, Validators.min(18), Validators.max(120)])
@@ -33,8 +32,14 @@ export class RegisterComponent {
 
   })
 
+  showAlert = false;
+  alertMsg = 'Please wait! Your account is being created.'
+  alertColor = 'blue';
 
-  constructor() {
+  register() {
+    this.showAlert = true;
+    this.alertMsg = 'Please wait! Your account is being created.'
+    this.alertColor = 'blue'
   }
 
 }
