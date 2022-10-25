@@ -15,7 +15,7 @@ export class LoginComponent {
   constructor() { }
 
   login() {
-    console.log("Login has been called")
+    console.log("Login has been called")  
   }
 
 }
