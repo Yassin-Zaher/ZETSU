@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators, AbstractControl } from "@angular/forms";
-import { AngularFireAuth } from '@angular/fire/compat/auth';
-import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { FormGroup, FormControl, Validators } from "@angular/forms";
+import { AuthService } from 'src/app/service/auth.service';
+import { IUser } from 'src/app/models/user.model';
 
 @Component({
   selector: 'app-register',
@@ -10,8 +10,7 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 })
 export class RegisterComponent {
 
-  constructor(private auth: AngularFireAuth,
-    private db: AngularFirestore) { }
+  constructor(private auth: AuthService) { }
 
   name = new FormControl('', [Validators.required, Validators.minLength(3)])
   email = new FormControl('', [Validators.required, Validators.email])
@@ -47,29 +46,26 @@ export class RegisterComponent {
     this.alertMsg = 'Please wait! Your account is being created.'
     this.alertColor = 'blue'
 
-    //reigster the user in firebase
-    const { email, password } = this.registgerForm.value;
-
+    //register the user in firebase
+    const user: IUser = {
+      name: this.name.value!,
+      password: this.password.value!,
+      email: this.email.value!,
+      age: Number(this.age.value!),
+      phoneNumber: this.phoneNumber.value!
+    };
+    // is the promies resolves that's means our service created the user sucefuly
     try {
-      const userCred = await this.auth.createUserWithEmailAndPassword(
-        email!, password!
-      )
+      await this.auth.registerUser(user);
 
-      // store user info in the firestore db
-      await this.db.collection('users').add({
-        name: this.name.value,
-        email: this.email.value,
-        phoneNumber: this.phoneNumber.value,
-        age: this.age.value
-      })
-    } catch (e) {
-      console.log(e);
+    } catch (err) {
+      console.log(err);
 
-      this.alertMsg = "An unexpected error occurred, Please try agin later"
+      this.alertMsg = "An unexpected error occurred, Please try agin later";
       this.alertColor = "red";
-      return
-
     }
+    /*  */
+
     this.alertMsg = "Success! Your account has been created."
     this.alertColor = "green"
   }

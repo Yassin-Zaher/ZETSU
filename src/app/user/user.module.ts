@@ -8,6 +8,7 @@ import { RegisterComponent } from './register/register.component';
 
 
 
+
 @NgModule({
   declarations: [
     AuthModalComponent,
@@ -18,7 +19,7 @@ import { RegisterComponent } from './register/register.component';
     CommonModule,
     SharedModule,
     ReactiveFormsModule,
-    FormsModule,
+    FormsModule
   ],
   exports: [
     AuthModalComponent
