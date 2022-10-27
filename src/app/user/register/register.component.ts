@@ -59,10 +59,9 @@ export class RegisterComponent {
       await this.auth.registerUser(user);
 
     } catch (err) {
-      console.log(err);
-
       this.alertMsg = "An unexpected error occurred, Please try agin later";
       this.alertColor = "red";
+      return
     }
     /*  */
 

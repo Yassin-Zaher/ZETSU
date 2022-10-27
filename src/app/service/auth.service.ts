@@ -26,12 +26,21 @@ export class AuthService {
       user.email, user.password
     )
 
+    if (!userCred.user) {
+      throw Error("Can't find user")
+    }
+
     // store user info in the firestore db
-    await this.userCollection.add({
+    await this.userCollection.doc(userCred.user.uid).set({
       name: user.name,
       email: user.email,
       phoneNumber: user.phoneNumber,
       age: user.age
+    })
+
+    // update the user to have name
+    await userCred.user.updateProfile({
+      displayName: user.name
     })
   }
 
