@@ -12,8 +12,11 @@ export class AuthService {
   private userCollection: AngularFirestoreCollection<IUser>;
 
   constructor(private auth: AngularFireAuth,
-    private db: AngularFirestore) {
+    private db: AngularFirestore
+  ) {
     this.userCollection = db.collection("users");
+    auth.user.subscribe(console.log);
+
   }
 
 

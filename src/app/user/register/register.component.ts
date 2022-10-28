@@ -63,7 +63,7 @@ export class RegisterComponent {
       this.alertColor = "red";
       return
     }
-    /*  */
+
 
     this.alertMsg = "Success! Your account has been created."
     this.alertColor = "green"
