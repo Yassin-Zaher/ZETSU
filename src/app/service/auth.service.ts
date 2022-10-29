@@ -23,10 +23,7 @@ export class AuthService {
     //new Observable, whose subscription logic is based on the first Observable.
     // the new observable is boolean type
     this.isAuthenticated$ = auth.user.pipe(
-      map(user => {
-        return user ? true : false;
-      }
-      )
+      map(user => !!user)
     )
 
   }
