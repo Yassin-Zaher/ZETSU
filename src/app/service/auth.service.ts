@@ -3,7 +3,7 @@ import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/compat/firestore';
 import { Observable } from 'rxjs';
 import { IUser } from "../models/user.model";
-import { map } from 'rxjs/operators';
+import { delay, map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +12,7 @@ export class AuthService {
 
   // add type safty to ou db by providing a type 
   private userCollection: AngularFirestoreCollection<IUser>;
-
+  public isAuthenticatedAfterDelay$: Observable<boolean>;
   public isAuthenticated$: Observable<boolean>;
 
   constructor(private auth: AngularFireAuth,
@@ -22,6 +22,10 @@ export class AuthService {
 
     //new Observable, whose subscription logic is based on the first Observable.
     // the new observable is boolean type
+    this.isAuthenticatedAfterDelay$ = auth.user.pipe(
+      delay(1000),
+      map(user => !!user)
+    )
     this.isAuthenticated$ = auth.user.pipe(
       map(user => !!user)
     )
