@@ -41,4 +41,6 @@ hover:bg-indigo-500 disabled:opacity-75 disabled:cursor-not-allowed disabled:bg-
             [disabled]="!registgerForm.valid">
             Submit
       </button>
+
+      {{registgerForm.errors | json }}
 </form>
