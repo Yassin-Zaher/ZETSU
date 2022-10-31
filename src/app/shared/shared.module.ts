@@ -7,9 +7,13 @@ import { InputComponent } from './input/input.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NgxMaskModule } from 'ngx-mask';
 import { AlertComponent } from './alert/alert.component';
+import { MatButtonModule } from '@angular/material/button';
 
 
 
+const modules = [
+  MatButtonModule
+]
 
 @NgModule({
   declarations: [
@@ -22,15 +26,16 @@ import { AlertComponent } from './alert/alert.component';
   imports: [
     CommonModule,
     ReactiveFormsModule,
-
-    NgxMaskModule.forRoot()
+    NgxMaskModule.forRoot(),
+    ...modules
   ],
   exports: [
     ModalComponent,
     TabComponent,
     TabsContainerComponent,
     AlertComponent,
-    InputComponent
+    InputComponent,
+    ...modules
   ]
 })
 export class SharedModule { }

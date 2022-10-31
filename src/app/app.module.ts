@@ -8,7 +8,9 @@ import { NavComponent } from './nav/nav.component';
 import { AngularFireModule } from '@angular/fire/compat';
 import { environment } from 'src/environments/environment';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
-import { AngularFirestoreModule } from '@angular/fire/compat/firestore'
+import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
+import { MatMenuModule } from '@angular/material/menu';
 
 @NgModule({
   declarations: [
@@ -22,7 +24,9 @@ import { AngularFirestoreModule } from '@angular/fire/compat/firestore'
     UserModule,
     AngularFireModule.initializeApp(environment.fireabse),
     AngularFireAuthModule,
-    AngularFirestoreModule
+    BrowserAnimationsModule,
+    AngularFirestoreModule,
+    MatMenuModule
   ],
   providers: [],
   bootstrap: [AppComponent]
