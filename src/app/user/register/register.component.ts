@@ -3,6 +3,7 @@ import { FormGroup, FormControl, Validators } from "@angular/forms";
 import { AuthService } from 'src/app/service/auth.service';
 import { IUser } from 'src/app/models/user.model';
 import { RegisterValidators } from '../validators/register-validators';
+import { EmailTaken } from '../validators/email-taken';
 
 @Component({
   selector: 'app-register',
@@ -11,11 +12,13 @@ import { RegisterValidators } from '../validators/register-validators';
 })
 export class RegisterComponent {
 
-  constructor(private auth: AuthService) { }
+  constructor(private auth: AuthService,
+    private emailTaken: EmailTaken) { }
 
   name = new FormControl('', [Validators.required, Validators.minLength(3)])
   email = new FormControl('', [Validators.required, Validators.email])
-  age = new FormControl('', [Validators.required, Validators.min(18), Validators.max(120)])
+  age = new FormControl('', [Validators.required, Validators.min(18), Validators.max(120)]
+    , [this.emailTaken.validate])
   password = new FormControl('',
     [Validators.required,
     Validators.pattern(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/gm)])
