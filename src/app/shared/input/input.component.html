@@ -31,4 +31,7 @@ duration-500 focus:outline-none rounded bg-transparent focus:border-indigo-400" 
             Invalid age
       </p>
 
+      <p *ngIf="control.errors?.['noMatch']" class="text-red-400">
+            passwords do not match.
+      </p>
 </ng-container>
