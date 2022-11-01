@@ -3,8 +3,8 @@ import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/compat/firestore';
 import { Observable } from 'rxjs';
 import { IUser } from "../models/user.model";
-import { delay, map } from 'rxjs/operators';
-
+import { delay, map, filter } from 'rxjs/operators';
+import { ActivatedRoute, NavigationEnd } from '@angular/router';
 import { Router } from '@angular/router';
 
 @Injectable({
@@ -19,7 +19,8 @@ export class AuthService {
 
   constructor(private auth: AngularFireAuth,
     private db: AngularFirestore,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute
   ) {
     this.userCollection = db.collection("users");
 
@@ -32,6 +33,11 @@ export class AuthService {
     this.isAuthenticated$ = auth.user.pipe(
       map(user => !!user)
     )
+
+
+    this.router.events.pipe(
+      filter(e => e instanceof NavigationEnd)
+    ).subscribe(console.log)
 
 
 
