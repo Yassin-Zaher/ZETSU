@@ -13,6 +13,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { MatMenuModule } from '@angular/material/menu';
 import { HomeComponent } from './home/home.component';
 import { AboutComponent } from './about/about.component';
+import { VideoModule } from './video/video.module';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { AboutComponent } from './about/about.component';
     AngularFireAuthModule,
     BrowserAnimationsModule,
     AngularFirestoreModule,
-    MatMenuModule
+    MatMenuModule,
+    VideoModule
   ],
   providers: [],
   bootstrap: [AppComponent]

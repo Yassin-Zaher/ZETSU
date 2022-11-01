@@ -1,7 +1,7 @@
 <header id="header" class="bg-secondary">
       <nav class="container mx-auto flex justify-start items-center py-8 px-4">
             <!-- App Name -->
-            <a class="text-3xl text-indigo-400 font-bold uppercase mr-4" href="index.html">ZETSU</a>
+            <a class="text-3xl text-indigo-400 font-bold uppercase mr-4" routerLink="/">ZETSU</a>
 
             <div class="flex flex-row flex-grow items-center">
                   <!-- Primary Navigation -->
@@ -16,7 +16,8 @@
                         <!--Auth links based on user state !-->
                         <ng-template #authLinks>
                               <li>
-                                    <a class="px-2" href="#">Manage</a>
+                                    <a class="px-2" routerLink="/manage" routerLinkActive="text-indigo-400"
+                                          [routerLinkActiveOptions]="{exact: true}">Manage</a>
                               </li>
                               <li>
                                     <a class="px-2" href="#">Upload</a>
@@ -32,7 +33,8 @@
                         </ng-template>
 
                         <li>
-                              <a mat-button class="px-2" href="/about">About</a>
+                              <a mat-button class="px-2" routerLink="/about" routerLinkActive="text-indigo-400"
+                                    [routerLinkActiveOptions]="{exact: true}">About</a>
 
                         </li>
 
