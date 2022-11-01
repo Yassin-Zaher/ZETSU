@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { Router } from '@angular/router';
 import { map } from 'rxjs';
 import { AuthService } from '../service/auth.service';
 import { ModalService } from '../service/modal.service';
@@ -14,7 +15,8 @@ export class NavComponent implements OnInit {
 
   constructor(public modal: ModalService,
     public auth: AuthService,
-    public afAuth: AngularFireAuth) { }
+    public afAuth: AngularFireAuth,
+    private router: Router) { }
 
   ngOnInit(): void {
   }
@@ -29,6 +31,9 @@ export class NavComponent implements OnInit {
     $event.preventDefault();
     // angular fire will handle the logout for us
     await this.afAuth.signOut();
+
+    // rediticting the user to the main page
+    this.router.navigateByUrl('/')
 
   }
 
