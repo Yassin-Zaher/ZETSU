@@ -3,7 +3,7 @@ import { ManageComponent } from './manage/manage.component';
 import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
-  { path: 'manage', component: ManageComponent }
+  { path: 'manage', component: ManageComponent, data: { authOnly: true } }
 ];
 
 @NgModule({
