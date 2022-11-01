@@ -5,6 +5,8 @@ import { Observable } from 'rxjs';
 import { IUser } from "../models/user.model";
 import { delay, map } from 'rxjs/operators';
 
+import { Router } from '@angular/router';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -16,7 +18,8 @@ export class AuthService {
   public isAuthenticated$: Observable<boolean>;
 
   constructor(private auth: AngularFireAuth,
-    private db: AngularFirestore
+    private db: AngularFirestore,
+    private router: Router
   ) {
     this.userCollection = db.collection("users");
 
@@ -60,6 +63,20 @@ export class AuthService {
     await userCred.user.updateProfile({
       displayName: user.name
     })
+  }
+
+
+  public async signUserOut($event?: Event) {
+    if ($event) {
+      $event.preventDefault();
+    }
+
+    // angular fire will handle the logout for us
+    await this.auth.signOut();
+
+    // rediticting the user to the main page
+    this.router.navigateByUrl('/')
+
   }
 
 }
