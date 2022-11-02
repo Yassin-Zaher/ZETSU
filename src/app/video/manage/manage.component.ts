@@ -7,6 +7,7 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./manage.component.css']
 })
 export class ManageComponent implements OnInit {
+  public videoOrder = '1';
 
   constructor(private router: Router,
     private route: ActivatedRoute) { }

@@ -15,13 +15,12 @@ import { AboutComponent } from './about/about.component';
 import { VideoModule } from './video/video.module';
 import { ClipComponent } from './clip/clip.component';
 import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
+
 
 
 
 const angularMaterial = [
-  MatButtonModule,
-  MatIconModule
+  MatButtonModule
 ]
 
 @NgModule({
@@ -35,14 +34,14 @@ const angularMaterial = [
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule,
     UserModule,
     AngularFireModule.initializeApp(environment.fireabse),
     AngularFireAuthModule,
     BrowserAnimationsModule,
     AngularFirestoreModule,
     VideoModule,
-    ...angularMaterial
+    ...angularMaterial,
+    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]
