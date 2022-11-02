@@ -4,7 +4,11 @@
             <div class="font-bold mb-6">Upload Video</div>
 
             <!-- Upload Dropbox -->
-            <div app-block-event class="w-full px-10 py-40 rounded text-center cursor-pointer border border-dashed
+            <div app-block-event (dragend)="isDragged = false" (dragover)="isDragged = true"
+                  (dragenter)="isDragged = true" (dragleave)="isDragged = false" (mauseleave)="isDragged = false"
+                  (drop)="storeFile($event)" [ngClass]="{
+                  'bg-indigo-400 border-indigo-400 border-solid': isDragged
+            }" class="w-full px-10 py-40 rounded text-center cursor-pointer border border-dashed
             border-gray-400 transition duration-500 hover:text-white
             hover:bg-indigo-400 hover:border-indigo-400 hover:border-solid text-xl">
                   <h5>Drop your file here (mp4 only!)</h5>
