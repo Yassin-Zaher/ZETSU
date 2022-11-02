@@ -8,6 +8,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { NgxMaskModule } from 'ngx-mask';
 import { AlertComponent } from './alert/alert.component';
 import { MatButtonModule } from '@angular/material/button';
+import { BlockEvendDirective } from './directives/block-evend.directive';
 
 
 
@@ -21,7 +22,8 @@ const modules = [
     TabsContainerComponent,
     TabComponent,
     InputComponent,
-    AlertComponent
+    AlertComponent,
+    BlockEvendDirective
   ],
   imports: [
     CommonModule,
@@ -35,6 +37,7 @@ const modules = [
     TabsContainerComponent,
     AlertComponent,
     InputComponent,
+    BlockEvendDirective,
     ...modules
   ]
 })
