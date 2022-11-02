@@ -11,8 +11,13 @@ body {
       font-size: inherit;
 }
 
+.main-content-container {
+      margin: 10px 40px 10px 40px;
+
+}
+
 .bg-secondary {
-      background-color: #283046;
+      background-color: rgb(30 41 59);
 }
 
 .bg-gradient {
@@ -297,5 +302,13 @@ body {
       margin: 0;
       font-family: Roboto, "Helvetica Neue", sans-serif;
 }
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+html,
+body {
+      height: 100%;
+}
+
+body {
+      margin: 0;
+      font-family: Roboto, "Helvetica Neue", sans-serif;
+}

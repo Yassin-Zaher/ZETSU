@@ -1,8 +1,10 @@
 <!--coming from the nav component-->
 <app-nav></app-nav>
 
+<div class="main-content-container">
+      <router-outlet></router-outlet>
+</div>
 
 
-<router-outlet></router-outlet>
 <!-- Auth Modal -->
 <app-auth-modal *ngIf="!(auth.isAuthenticatedAfterDelay$ | async)"></app-auth-modal>

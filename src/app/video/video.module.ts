@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { VideoRoutingModule } from './video-routing.module';
 import { ManageComponent } from './manage/manage.component';
 import { UploadComponent } from './upload/upload.component';
+import { MatIconModule } from '@angular/material/icon';
 
 
 @NgModule({
@@ -13,7 +14,8 @@ import { UploadComponent } from './upload/upload.component';
   ],
   imports: [
     CommonModule,
-    VideoRoutingModule
+    VideoRoutingModule,
+    MatIconModule
   ]
 })
 export class VideoModule { }

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-manage',
@@ -7,9 +8,22 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ManageComponent implements OnInit {
 
-  constructor() { }
+  constructor(private router: Router,
+    private route: ActivatedRoute) { }
 
   ngOnInit(): void {
+  }
+
+
+  sort(event: Event) {
+    const { value } = (event.target as HTMLSelectElement);
+
+    this.router.navigate(["manage", value], {
+      relativeTo: this.route,
+      queryParams: {
+        sort: value
+      }
+    })
   }
 
 }

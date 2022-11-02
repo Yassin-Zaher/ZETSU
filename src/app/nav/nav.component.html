@@ -1,4 +1,4 @@
-<header id="header" class="bg-secondary">
+<header id="header" class="bg-secondary bg-slate-800">
       <nav class="container mx-auto flex justify-start items-center py-8 px-4">
             <!-- App Name -->
             <a class="text-3xl text-indigo-400 font-bold uppercase mr-4" routerLink="/">ZETSU</a>
@@ -16,11 +16,12 @@
                         <!--Auth links based on user state !-->
                         <ng-template #authLinks>
                               <li>
-                                    <a class="px-2" routerLink="/manage" routerLinkActive="text-indigo-400"
+                                    <a mat-button class="px-2" [queryParams]="{sort: '1'}" routerLink="/manage"
+                                          routerLinkActive="text-indigo-400"
                                           [routerLinkActiveOptions]="{exact: true}">Manage</a>
                               </li>
                               <li>
-                                    <a class="px-2" routerLink="/upload" routerLinkActive="text-indigo-400"
+                                    <a mat-button class="px-2" routerLink="/upload" routerLinkActive="text-indigo-400"
                                           [routerLinkActiveOptions]="{exact: true}">Upload</a>
                               </li>
 
@@ -34,7 +35,7 @@
                         </ng-template>
 
                         <li>
-                              <a mat-button class="px-2" routerLink="/about" routerLinkActive="text-indigo-400"
+                              <a mat-raised-button class="px-2" routerLink="/about" routerLinkActive="text-indigo-400"
                                     [routerLinkActiveOptions]="{exact: true}">About</a>
 
                         </li>

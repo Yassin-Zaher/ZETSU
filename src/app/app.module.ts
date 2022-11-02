@@ -10,11 +10,19 @@ import { environment } from 'src/environments/environment';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
-import { MatMenuModule } from '@angular/material/menu';
 import { HomeComponent } from './home/home.component';
 import { AboutComponent } from './about/about.component';
 import { VideoModule } from './video/video.module';
 import { ClipComponent } from './clip/clip.component';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+
+
+
+const angularMaterial = [
+  MatButtonModule,
+  MatIconModule
+]
 
 @NgModule({
   declarations: [
@@ -33,8 +41,8 @@ import { ClipComponent } from './clip/clip.component';
     AngularFireAuthModule,
     BrowserAnimationsModule,
     AngularFirestoreModule,
-    MatMenuModule,
-    VideoModule
+    VideoModule,
+    ...angularMaterial
   ],
   providers: [],
   bootstrap: [AppComponent]
