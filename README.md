@@ -1,3 +1,3 @@
 # ZUTSU
-A web application buit with angular
+a self-hosting video application where users can upload and share their gaming highlights with their friends. 
 ## more: working on it...
