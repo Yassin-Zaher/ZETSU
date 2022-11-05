@@ -15,6 +15,8 @@ export class UploadComponent implements OnInit {
 
   storeFile(event: Event) {
     this.isDragged = false
+    console.log(event);
+
   }
 
 }
