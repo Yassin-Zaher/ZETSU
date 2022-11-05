@@ -8,6 +8,7 @@ import { Component, OnInit } from '@angular/core';
 export class UploadComponent implements OnInit {
   isDragged = false;
   file: File | null = null;
+  isValidFileUploaded = false;
 
   constructor() { }
 
@@ -21,6 +22,8 @@ export class UploadComponent implements OnInit {
     if (!this.file || this.file.type !== "video/mp4") {
       return
     }
+
+    this.isValidFileUploaded = true;
 
   }
 
