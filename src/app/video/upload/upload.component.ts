@@ -6,16 +6,21 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./upload.component.css']
 })
 export class UploadComponent implements OnInit {
-  public isDragged = false;
+  isDragged = false;
+  file: File | null = null;
 
   constructor() { }
 
   ngOnInit(): void {
   }
 
-  storeFile(event: Event) {
+  storeFile($event: Event) {
     this.isDragged = false
-    console.log(event);
+    this.file = ($event as DragEvent).dataTransfer?.files.item(0) ?? null
+
+    if (!this.file || this.file.type !== "video/mp4") {
+      return
+    }
 
   }
 
