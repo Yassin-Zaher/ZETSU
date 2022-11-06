@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-upload',
@@ -10,6 +11,15 @@ export class UploadComponent implements OnInit {
   file: File | null = null;
   isValidFileUploaded = false;
 
+  //form
+  title = new FormControl('', {
+    validators: [Validators.required, Validators.minLength(3)],
+    nonNullable: true
+  })
+
+  videoFormGroup = new FormGroup({
+    title: this.title
+  })
   constructor() { }
 
   ngOnInit(): void {
