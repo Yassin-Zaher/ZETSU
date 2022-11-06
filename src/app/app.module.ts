@@ -9,6 +9,7 @@ import { AngularFireModule } from '@angular/fire/compat';
 import { environment } from 'src/environments/environment';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
+import { AngularFireStorageModule } from '@angular/fire/compat/storage';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { HomeComponent } from './home/home.component';
 import { AboutComponent } from './about/about.component';
@@ -40,6 +41,7 @@ const angularMaterial = [
     BrowserAnimationsModule,
     AngularFirestoreModule,
     VideoModule,
+    AngularFireStorageModule,
     ...angularMaterial,
     AppRoutingModule
   ],
