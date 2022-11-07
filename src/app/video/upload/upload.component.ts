@@ -12,7 +12,11 @@ export class UploadComponent implements OnInit {
   isDragged = false;
   file: File | null = null;
   isValidFileUploaded = false;
-  isFormOnSubmit = false;
+
+  isInSubmition = false
+  alertMsg = "Please wait you file is being uploaded!"
+  alertColor = 'blue'
+  showAlert = false
 
   //form
   title = new FormControl('', {
@@ -41,7 +45,8 @@ export class UploadComponent implements OnInit {
   }
 
   uploadFile() {
-    this.isFormOnSubmit = true
+    this.showAlert = true
+    this.isInSubmition = true
     const clipFileName = uuid()
     const clipPath = `clips/${clipFileName}.mp4`;
 
