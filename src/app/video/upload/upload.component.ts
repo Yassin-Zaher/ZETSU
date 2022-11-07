@@ -12,6 +12,7 @@ export class UploadComponent implements OnInit {
   isDragged = false;
   file: File | null = null;
   isValidFileUploaded = false;
+  isFormOnSubmit = false;
 
   //form
   title = new FormControl('', {
@@ -40,10 +41,14 @@ export class UploadComponent implements OnInit {
   }
 
   uploadFile() {
+    this.isFormOnSubmit = true
     const clipFileName = uuid()
     const clipPath = `clips/${clipFileName}.mp4`;
 
-    this.storage.upload(clipPath, this.file)
+    this.storage.upload(clipPath, this.file);
+    console.log("Logging the file");
+
+
   }
 
 }
