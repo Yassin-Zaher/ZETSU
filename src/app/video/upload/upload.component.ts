@@ -15,7 +15,7 @@ export class UploadComponent implements OnInit {
 
   isInSubmition = false
   alertMsg = "Please wait you file is being uploaded!"
-  alertColor = 'blue'
+  alertColor = "blue"
   showAlert = false
 
   //form
@@ -47,11 +47,13 @@ export class UploadComponent implements OnInit {
   uploadFile() {
     this.showAlert = true
     this.isInSubmition = true
+
     const clipFileName = uuid()
     const clipPath = `clips/${clipFileName}.mp4`;
 
     this.storage.upload(clipPath, this.file);
-    console.log("Logging the file");
+
+
 
 
   }
