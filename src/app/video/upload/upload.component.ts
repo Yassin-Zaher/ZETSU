@@ -15,8 +15,9 @@ export class UploadComponent implements OnInit {
 
   isInSubmition = false
   alertMsg = "Please wait you file is being uploaded!"
-  alertColor = "blue"
+  alertColor = "violet"
   showAlert = false
+  percentage = 0
 
   //form
   title = new FormControl('', {
@@ -51,7 +52,10 @@ export class UploadComponent implements OnInit {
     const clipFileName = uuid()
     const clipPath = `clips/${clipFileName}.mp4`;
 
-    this.storage.upload(clipPath, this.file);
+    const task = this.storage.upload(clipPath, this.file);
+    task.percentageChanges().subscribe(process => {
+      this.percentage = process as number / 100
+    })
 
 
 
