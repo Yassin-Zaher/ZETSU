@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { v4 as uuid } from 'uuid';
+import { ProgressBarMode } from '@angular/material/progress-bar';
 
 @Component({
   selector: 'app-upload',
@@ -15,9 +16,15 @@ export class UploadComponent implements OnInit {
 
   isInSubmition = false
   alertMsg = "Please wait you file is being uploaded!"
-  alertColor = "violet"
+  alertColor = "bg-blue-400"
   showAlert = false
-  percentage = 0
+  parcentage = 0
+
+
+  //matProgess bar 
+  color = 'indigo';
+  mode: ProgressBarMode = 'determinate';
+  value = 0
 
   //form
   title = new FormControl('', {
@@ -46,6 +53,7 @@ export class UploadComponent implements OnInit {
   }
 
   uploadFile() {
+    this.alertColor = "bg-blue-400"
     this.showAlert = true
     this.isInSubmition = true
 
@@ -54,7 +62,8 @@ export class UploadComponent implements OnInit {
 
     const task = this.storage.upload(clipPath, this.file);
     task.percentageChanges().subscribe(process => {
-      this.percentage = process as number / 100
+      this.parcentage = process as number / 100
+      this.value = process as number
     })
 
 

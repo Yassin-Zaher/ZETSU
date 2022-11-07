@@ -17,10 +17,15 @@
             <!-- Video Editor -->
             <ng-template #uploadFormDetails>
 
-                  <app-alert *ngIf="showAlert" [color]="alertColor">
-                        <p>{{ alertMsg }}</p>
-                        <p>{{ percentage | percent}}</p>
-                  </app-alert>
+                  <div [ngClass]="alertColor" class="rounded-md">
+                        <app-alert *ngIf="showAlert">
+                              <p>{{ alertMsg }}</p>
+                              <p>{{ parcentage | percent}}</p>
+                              <mat-progress-bar class="example-margin" [color]="color" [mode]="mode" [value]="value">
+                              </mat-progress-bar>
+                        </app-alert>
+                  </div>
+
 
                   <!-- Form -->
                   <form [formGroup]="videoFormGroup" (ngSubmit)="uploadFile()">
