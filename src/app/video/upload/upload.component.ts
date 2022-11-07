@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { v4 as uuid } from 'uuid';
 import { ProgressBarMode } from '@angular/material/progress-bar';
+import { last } from 'rxjs';
 
 @Component({
   selector: 'app-upload',
@@ -22,9 +23,10 @@ export class UploadComponent implements OnInit {
 
 
   //matProgess bar 
-  color = 'indigo';
+  color = 'cyan';
   mode: ProgressBarMode = 'determinate';
   value = 0
+  showProgressBar = false
 
   //form
   title = new FormControl('', {
@@ -53,9 +55,9 @@ export class UploadComponent implements OnInit {
   }
 
   uploadFile() {
-    this.alertColor = "bg-blue-400"
     this.showAlert = true
     this.isInSubmition = true
+    this.showProgressBar = true
 
     const clipFileName = uuid()
     const clipPath = `clips/${clipFileName}.mp4`;
@@ -67,7 +69,23 @@ export class UploadComponent implements OnInit {
     })
 
 
+    task.snapshotChanges().pipe(
+      last()
+    ).subscribe({
+      next: (snapshot) => {
+        this.showProgressBar = false
+        this.alertColor = "bg-green-400"
+        this.alertMsg = "Success! your video is ready to be shared with others."
+      },
+      error: (error) => {
+        this.showProgressBar = false
+        this.alertColor = "bg-red-400"
+        this.alertMsg = "Upload failed, please try again later!"
+        this.isInSubmition = false
 
+
+      }
+    })
 
   }
 

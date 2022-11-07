@@ -20,8 +20,9 @@
                   <div [ngClass]="alertColor" class="rounded-md">
                         <app-alert *ngIf="showAlert">
                               <p>{{ alertMsg }}</p>
-                              <p>{{ parcentage | percent}}</p>
-                              <mat-progress-bar class="example-margin" [color]="color" [mode]="mode" [value]="value">
+                              <p *ngIf="showProgressBar">{{ parcentage | percent}}</p>
+                              <mat-progress-bar *ngIf="showProgressBar" class="example-margin" [color]="color"
+                                    [mode]="mode" [value]="value">
                               </mat-progress-bar>
                         </app-alert>
                   </div>
