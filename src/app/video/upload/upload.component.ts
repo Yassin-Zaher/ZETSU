@@ -3,7 +3,11 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { v4 as uuid } from 'uuid';
 import { ProgressBarMode } from '@angular/material/progress-bar';
-import { last } from 'rxjs';
+import { last, switchMap } from 'rxjs';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
+import firebase from 'firebase/compat/app'
+
+
 
 @Component({
   selector: 'app-upload',
@@ -21,6 +25,8 @@ export class UploadComponent implements OnInit {
   showAlert = false
   parcentage = 0
 
+  // The user auth
+  user: firebase.User | null = null
 
   //matProgess bar 
   color = 'cyan';
@@ -37,7 +43,10 @@ export class UploadComponent implements OnInit {
   videoFormGroup = new FormGroup({
     title: this.title
   })
-  constructor(private storage: AngularFireStorage) { }
+  constructor(private storage: AngularFireStorage,
+    private auth: AngularFireAuth) {
+    auth.user.subscribe(user => this.user = user)
+  }
 
   ngOnInit(): void {
   }
@@ -63,6 +72,9 @@ export class UploadComponent implements OnInit {
     const clipPath = `clips/${clipFileName}.mp4`;
 
     const task = this.storage.upload(clipPath, this.file);
+
+    const clipRef = this.storage.ref(clipPath)
+
     task.percentageChanges().subscribe(process => {
       this.parcentage = process as number / 100
       this.value = process as number
@@ -70,9 +82,21 @@ export class UploadComponent implements OnInit {
 
 
     task.snapshotChanges().pipe(
-      last()
+      last(),
+      switchMap(() => clipRef.getDownloadURL())
+
     ).subscribe({
-      next: (snapshot) => {
+      next: (url) => {
+        const clip = {
+          uid: this.user?.uid,
+          displayName: this.user?.displayName,
+          title: this.title.value,
+          fileName: `${clipFileName}.mp4`,
+          url
+
+        }
+        console.log(clip);
+
         this.showProgressBar = false
         this.alertColor = "bg-green-400"
         this.alertMsg = "Success! your video is ready to be shared with others."
