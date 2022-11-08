@@ -113,13 +113,17 @@ export class UploadComponent implements OnDestroy {
           displayName: this.user?.displayName as string,
           title: this.title.value,
           fileName: `${clipFileName}.mp4`,
-          url
+          url,
+          timestamp: firebase.firestore.FieldValue.serverTimestamp()
         }
         this.clipSerive.storeClip(clip)
 
         this.showProgressBar = false
         this.alertColor = "bg-green-400"
         this.alertMsg = "Success! your video is ready to be shared with others."
+
+        this.redirectToClip(clip.uid)
+
       },
       error: (error) => {
         this.videoFormGroup.enable()
@@ -135,8 +139,7 @@ export class UploadComponent implements OnDestroy {
   }
 
 
-  redirectToClip() {
-    const clipId = ""
+  redirectToClip(clipId: string) {
     this.router.navigate([`clip/${clipId}`])
   }
 
