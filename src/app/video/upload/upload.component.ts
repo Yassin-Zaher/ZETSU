@@ -63,7 +63,9 @@ export class UploadComponent implements OnInit {
 
   }
 
+
   uploadFile() {
+    this.videoFormGroup.disable()
     this.showAlert = true
     this.isInSubmition = true
     this.showProgressBar = true
@@ -102,6 +104,7 @@ export class UploadComponent implements OnInit {
         this.alertMsg = "Success! your video is ready to be shared with others."
       },
       error: (error) => {
+        this.videoFormGroup.enable()
         this.showProgressBar = false
         this.alertColor = "bg-red-400"
         this.alertMsg = "Upload failed, please try again later!"
