@@ -107,7 +107,7 @@ export class UploadComponent implements OnDestroy {
       switchMap(() => clipRef.getDownloadURL())
 
     ).subscribe({
-      next: (url) => {
+      next: async (url) => {
         const clip = {
           uid: this.user?.uid as string,
           displayName: this.user?.displayName as string,
@@ -122,7 +122,9 @@ export class UploadComponent implements OnDestroy {
         this.alertColor = "bg-green-400"
         this.alertMsg = "Success! your video is ready to be shared with others."
 
-        this.redirectToClip(clip.uid)
+        setTimeout(() => {
+          this.redirectToClip(clip.uid)
+        }, 1000)
 
       },
       error: (error) => {
