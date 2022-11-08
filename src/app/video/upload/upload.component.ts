@@ -53,7 +53,12 @@ export class UploadComponent implements OnInit {
 
   storeFile($event: Event) {
     this.isDragged = false
-    this.file = ($event as DragEvent).dataTransfer?.files.item(0) ?? null
+    this.file = ($event as DragEvent).dataTransfer ?
+      ($event as DragEvent).dataTransfer?.files.item(0) ?? null :
+      ($event.target as HTMLInputElement).files?.item(0) ?? null
+
+    console.log(this.file);
+
 
     if (!this.file || this.file.type !== "video/mp4") {
       return
@@ -65,7 +70,6 @@ export class UploadComponent implements OnInit {
 
 
   uploadFile() {
-    this.videoFormGroup.disable()
     this.showAlert = true
     this.isInSubmition = true
     this.showProgressBar = true
@@ -115,5 +119,7 @@ export class UploadComponent implements OnInit {
     })
 
   }
+
+
 
 }
