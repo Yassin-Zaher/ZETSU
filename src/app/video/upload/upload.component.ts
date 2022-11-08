@@ -6,6 +6,9 @@ import { ProgressBarMode } from '@angular/material/progress-bar';
 import { last, switchMap } from 'rxjs';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import firebase from 'firebase/compat/app'
+import { Router } from '@angular/router';
+import { ClipService } from 'src/app/service/clip.service';
+import { IClip } from 'src/app/models/clip.model';
 
 
 
@@ -15,15 +18,18 @@ import firebase from 'firebase/compat/app'
   styleUrls: ['./upload.component.css']
 })
 export class UploadComponent implements OnDestroy {
+  // style state variables
   isDragged = false;
-  file: File | null = null;
   isValidFileUploaded = false;
-
   isInSubmition = false
   alertMsg = "Please wait you file is being uploaded!"
   alertColor = "bg-blue-400"
   showAlert = false
   parcentage = 0
+
+
+  // handling files 
+  file: File | null = null;
   task?: AngularFireUploadTask;
 
   // The user auth
@@ -44,10 +50,18 @@ export class UploadComponent implements OnDestroy {
   videoFormGroup = new FormGroup({
     title: this.title
   })
+
+
+  //
   constructor(private storage: AngularFireStorage,
-    private auth: AngularFireAuth) {
+    private auth: AngularFireAuth,
+    private clipSerive: ClipService,
+    private router: Router) {
     auth.user.subscribe(user => this.user = user)
   }
+
+
+
   ngOnDestroy(): void {
     this.task?.cancel()
   }
@@ -95,14 +109,13 @@ export class UploadComponent implements OnDestroy {
     ).subscribe({
       next: (url) => {
         const clip = {
-          uid: this.user?.uid,
-          displayName: this.user?.displayName,
+          uid: this.user?.uid as string,
+          displayName: this.user?.displayName as string,
           title: this.title.value,
           fileName: `${clipFileName}.mp4`,
           url
-
         }
-        console.log(clip);
+        this.clipSerive.storeClip(clip)
 
         this.showProgressBar = false
         this.alertColor = "bg-green-400"
@@ -119,6 +132,12 @@ export class UploadComponent implements OnDestroy {
       }
     })
 
+  }
+
+
+  redirectToClip() {
+    const clipId = ""
+    this.router.navigate([`clip/${clipId}`])
   }
 
 
