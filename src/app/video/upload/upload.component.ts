@@ -8,7 +8,7 @@ import { AngularFireAuth } from '@angular/fire/compat/auth';
 import firebase from 'firebase/compat/app'
 import { Router } from '@angular/router';
 import { ClipService } from 'src/app/service/clip.service';
-import { IClip } from 'src/app/models/clip.model';
+
 
 
 
