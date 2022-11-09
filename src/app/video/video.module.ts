@@ -8,11 +8,13 @@ import { MatIconModule } from '@angular/material/icon';
 import { SharedModule } from '../shared/shared.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { EditComponent } from './edit/edit.component';
 
 @NgModule({
   declarations: [
     ManageComponent,
-    UploadComponent
+    UploadComponent,
+    EditComponent
   ],
   imports: [
     CommonModule,
