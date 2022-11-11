@@ -41,9 +41,11 @@ export class ManageComponent implements OnInit {
 
   sort(event: Event) {
     const { value } = (event.target as HTMLSelectElement);
+    console.log("heeeeey" + value);
 
-    this.router.navigate(["manage", value], {
-      relativeTo: this.route,
+
+    this.router.navigate(["manage"], {
+      relativeTo: this.route.root,
       queryParams: {
         sort: value
       }
