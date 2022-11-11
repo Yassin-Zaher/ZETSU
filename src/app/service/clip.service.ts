@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AngularFirestore, AngularFirestoreCollection, DocumentReference, QuerySnapshot } from '@angular/fire/compat/firestore';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
-import { of } from 'rxjs';
+import { BehaviorSubject, combineLatest, of } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 import { IClip } from '../models/clip.model';
 
@@ -25,23 +25,27 @@ export class ClipService {
 
   // we are returning new Obs 
   // that contains the clips or empty array if it's empty(unAuth)
-  getUserClips() {
-    return this.auth.user.pipe(
+  getUserClips(sort$: BehaviorSubject<string>) {
+    return combineLatest([this.auth.user, sort$])
+      .pipe(
+        // return an array
+        switchMap(values => {
+          const [user, sort] = values
+          if (!user) {
+            return of([])
+          }
+          const query = this.clipsCollection.ref.where(
+            'uid', '==', user.uid
+          ).orderBy(
+            'timestamp',
+            sort === '1' ? 'desc' : 'asc'
+          )
 
-      // return an array
-      switchMap(user => {
-        if (!user) {
-          return of([])
-        }
-        const query = this.clipsCollection.ref.where(
-          'uid', '==', user.uid
-        )
+          return query.get()
+        }),
 
-        return query.get()
-      }),
-
-      map((snapshot) => (snapshot as QuerySnapshot<IClip>).docs)
-    )
+        map((snapshot) => (snapshot as QuerySnapshot<IClip>).docs)
+      )
   }
 
 
