@@ -8,6 +8,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { SharedModule } from '../shared/shared.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { EditComponent } from './edit/edit.component';
 
 @NgModule({
@@ -22,6 +23,7 @@ import { EditComponent } from './edit/edit.component';
     MatIconModule,
     SharedModule,
     ReactiveFormsModule,
+    MatProgressSpinnerModule,
     MatProgressBarModule
   ]
 })

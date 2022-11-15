@@ -3,66 +3,79 @@
       <div class="rounded relative flex flex-col">
             <div class="font-bold mb-6">Upload Video</div>
 
-            <!-- Upload Dropbox -->
-            <ng-container *ngIf="!isValidFileUploaded; else uploadFormDetails">
-                  <div app-block-event (dragend)="isDragged = false" (dragover)="isDragged = true"
-                        (dragenter)="isDragged = true" (dragleave)="isDragged = false" (mauseleave)="isDragged = false"
-                        (drop)="storeFile($event)" [ngClass]="{
-                        'bg-indigo-400 border-indigo-400 border-solid': isDragged
-                  }" class="w-full px-10 py-40 rounded text-center cursor-pointer border border-dashed
-                  border-gray-400 transition duration-500 hover:text-white
-                  hover:bg-indigo-400 hover:border-indigo-400 hover:border-solid text-xl">
-                        <h5>Drop your file here (mp4 only!)</h5>
+            <ng-container>
+                  <div *ngIf="!ffmpegService.isReady; else uploadForm" class="flex flex-row w-100 justify-center">
+                        <mat-spinner></mat-spinner>
                   </div>
-                  <input type="file" class="mt-4" (change)="storeFile($event)" />
             </ng-container>
 
 
-            <!-- Video Editor -->
-            <ng-template #uploadFormDetails>
 
-                  <div [ngClass]="alertColor" class="rounded-md">
-                        <app-alert *ngIf="showAlert">
-                              <p>{{ alertMsg }}</p>
-                              <p *ngIf="showProgressBar">{{ parcentage | percent}}</p>
-                              <mat-progress-bar *ngIf="showProgressBar" class="example-margin" [color]="color"
-                                    [mode]="mode" [value]="value">
-                              </mat-progress-bar>
-                        </app-alert>
-                  </div>
+            <ng-template #uploadForm>
+
+                  <!-- Upload Dropbox -->
+                  <ng-container *ngIf="!isValidFileUploaded; else uploadFormDetails">
+                        <div app-block-event (dragend)="isDragged = false" (dragover)="isDragged = true"
+                              (dragenter)="isDragged = true" (dragleave)="isDragged = false"
+                              (mauseleave)="isDragged = false" (drop)="storeFile($event)" [ngClass]="{
+                              'bg-indigo-400 border-indigo-400 border-solid': isDragged
+                        }" class="w-full px-10 py-40 rounded text-center cursor-pointer border border-dashed
+                        border-gray-400 transition duration-500 hover:text-white
+                        hover:bg-indigo-400 hover:border-indigo-400 hover:border-solid text-xl">
+                              <h5>Drop your file here (mp4 only!)</h5>
+                        </div>
+                        <input type="file" class="mt-4" (change)="storeFile($event)" />
+                  </ng-container>
 
 
-                  <!-- Form -->
-                  <form [formGroup]="videoFormGroup" (ngSubmit)="uploadFile()">
-                        <!-- Screenshots -->
-                        <h2 class="mb-4 text-xl">Select a Thumbnail</h2>
-                        <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
-                              <div class="border-8 cursor-pointer border-green-400">
-                                    <img src="assets/img/1.jpg">
-                              </div>
-                              <div class="border-8 cursor-pointer border-transparent">
-                                    <img src="assets/img/2.jpg">
-                              </div>
-                              <div class="border-8 cursor-pointer border-transparent">
-                                    <img src="assets/img/3.jpg">
-                              </div>
+
+                  <!-- Video Editor -->
+                  <ng-template #uploadFormDetails>
+
+                        <div [ngClass]="alertColor" class="rounded-md">
+                              <app-alert *ngIf="showAlert">
+                                    <p>{{ alertMsg }}</p>
+                                    <p *ngIf="showProgressBar">{{ parcentage | percent}}</p>
+                                    <mat-progress-bar *ngIf="showProgressBar" class="example-margin" [color]="color"
+                                          [mode]="mode" [value]="value">
+                                    </mat-progress-bar>
+                              </app-alert>
                         </div>
 
-                        <!-- Title -->
-                        <div class="mt-4">
-                              <label class="block text-xl mb-4">Title</label>
-                              <input [disabled]="isInSubmition" [formControl]="title" type="text"
-                                    class="block w-full py-1.5 px-3 text-gray-200 border border-gray-400 transition
-              duration-500 focus:outline-none rounded bg-transparent focus:border-indigo-400 disabled:cursor-not-allowed">
-                        </div>
 
-                        <div class="mt-4 text-right">
-                              <button [disabled]="isInSubmition" type="submit" class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none
-                                    disabled:cursor-not-allowed disabled:bg-indigo-500">
-                                    Publish
-                              </button>
-                        </div>
-                  </form>
+                        <!-- Form -->
+                        <form [formGroup]="videoFormGroup" (ngSubmit)="uploadFile()">
+                              <!-- Screenshots -->
+                              <h2 class="mb-4 text-xl">Select a Thumbnail</h2>
+                              <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
+                                    <div class="border-8 cursor-pointer border-green-400">
+                                          <img src="assets/img/1.jpg">
+                                    </div>
+                                    <div class="border-8 cursor-pointer border-transparent">
+                                          <img src="assets/img/2.jpg">
+                                    </div>
+                                    <div class="border-8 cursor-pointer border-transparent">
+                                          <img src="assets/img/3.jpg">
+                                    </div>
+                              </div>
+
+                              <!-- Title -->
+                              <div class="mt-4">
+                                    <label class="block text-xl mb-4">Title</label>
+                                    <input [disabled]="isInSubmition" [formControl]="title" type="text"
+                                          class="block w-full py-1.5 px-3 text-gray-200 border border-gray-400 transition
+                  duration-500 focus:outline-none rounded bg-transparent focus:border-indigo-400 disabled:cursor-not-allowed">
+                              </div>
+
+                              <div class="mt-4 text-right">
+                                    <button [disabled]="isInSubmition" type="submit" class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none
+                                          disabled:cursor-not-allowed disabled:bg-indigo-500">
+                                          Publish
+                                    </button>
+                              </div>
+                        </form>
+                  </ng-template>
             </ng-template>
+
       </div>
 </section>
