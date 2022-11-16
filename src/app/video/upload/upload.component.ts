@@ -41,7 +41,6 @@ export class UploadComponent implements OnDestroy {
   mode: ProgressBarMode = 'determinate';
   value = 0
   showProgressBar = false
-  isInProccess = false
   // screenshots
   screenshots: string[] = []
 
@@ -74,6 +73,9 @@ export class UploadComponent implements OnDestroy {
   }
 
   async storeFile($event: Event) {
+    if (this.ffmpegService.isInProccess) {
+      return
+    }
     this.isDragged = false
     this.file = ($event as DragEvent).dataTransfer ?
       ($event as DragEvent).dataTransfer?.files.item(0) ?? null :
@@ -85,10 +87,8 @@ export class UploadComponent implements OnDestroy {
     if (!this.file || this.file.type !== "video/mp4") {
       return
     }
-    this.isInProccess = true
     this.screenshots = await this.ffmpegService.getScreenShots(this.file)
 
-    this.isInProccess = false
     this.isValidFileUploaded = true;
 
   }

@@ -4,8 +4,7 @@
             <div class="font-bold mb-6">Upload Video</div>
 
             <ng-container>
-                  <div *ngIf="!ffmpegService.isReady || isInProccess; else uploadForm"
-                        class="flex flex-row w-100 justify-center">
+                  <div *ngIf="!ffmpegService.isReady; else uploadForm" class="flex flex-row w-100 justify-center">
                         <mat-spinner></mat-spinner>
                   </div>
             </ng-container>
@@ -24,6 +23,10 @@
                         border-gray-400 transition duration-500 hover:text-white
                         hover:bg-indigo-400 hover:border-indigo-400 hover:border-solid text-xl">
                               <h5>Drop your file here (mp4 only!)</h5>
+                              <span *ngIf="ffmpegService.isInProccess"
+                                    class="material-icons text-center text-6xl animate-spin">
+                                    autorenew
+                              </span>
                         </div>
                         <input type="file" class="mt-4" (change)="storeFile($event)" />
                   </ng-container>
@@ -49,8 +52,7 @@
                               <!-- Screenshots -->
                               <h2 class="mb-4 text-xl">Select a Thumbnail</h2>
                               <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
-                                    <div *ngFor="let screenshot of screenshots"
-                                          class="border-8 cursor-pointer border-green-400">
+                                    <div *ngFor="let screenshot of screenshots" class="border-8 cursor-pointer ">
                                           <img [src]="screenshot | safeURL">
                                     </div>
 

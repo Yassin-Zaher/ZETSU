@@ -5,16 +5,31 @@ import { createFFmpeg, fetchFile } from '@ffmpeg/ffmpeg';
   providedIn: 'root'
 })
 export class FfmpegService {
+  isReady = false
+  isInProccess = false
+
+  private ffmpeg
+  constructor() {
+    this.ffmpeg = createFFmpeg({ log: true })
+  }
+
+  async init() {
+    if (this.isReady) {
+      return
+    }
+
+    await this.ffmpeg.load()
+    this.isReady = true
+  }
+
 
   async getScreenShots(file: File) {
+    this.isInProccess = true
     // will convert file to binary data
     const data = await fetchFile(file)
 
     // store the files in the system
     this.ffmpeg.FS('writeFile', file.name, data)
-
-    //ffprobe -i <file> -show_entries format=duration -v quiet -of csv="p=0"
-
 
     const seconds = [1, 5, 9]
     const commands: string[] = []
@@ -50,22 +65,7 @@ export class FfmpegService {
 
       screenShots.push(screenShotsUrl)
     })
-
+    this.isInProccess = false
     return screenShots
-  }
-
-  isReady = false
-  private ffmpeg
-  constructor() {
-    this.ffmpeg = createFFmpeg({ log: true })
-  }
-
-  async init() {
-    if (this.isReady) {
-      return
-    }
-
-    await this.ffmpeg.load()
-    this.isReady = true
   }
 }
