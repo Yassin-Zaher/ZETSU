@@ -13,15 +13,22 @@ export class FfmpegService {
     // store the files in the system
     this.ffmpeg.FS('writeFile', file.name, data)
 
+    const seconds = [1, 2, 3]
+    const commands: string[] = []
+    seconds.forEach((second) => {
+      commands.push(// Input 
+        "-i", file.name,
+        // Ouput Options
+        '-ss', `00:00:0${second}`,
+        '-frames:v', '1', // how many frames
+        '-filter:v', 'scale=510:-1',  // the image
+        // ouput
+        `ouput_0${second}.png`)
+    })
+
+
     await this.ffmpeg.run(
-      // Input 
-      "-i", file.name,
-      // Ouput Options
-      '-ss', '00:00:01',
-      '-frames:v', '1', // how many frames
-      '-filter:v', 'scale=510:-1',  // the image
-      // ouput
-      'ouput_01.png'
+      ...commands
     )
   }
 
