@@ -10,12 +10,14 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { EditComponent } from './edit/edit.component';
+import { SafeURLPipe } from './pipes/safe-url.pipe';
 
 @NgModule({
   declarations: [
     ManageComponent,
     UploadComponent,
-    EditComponent
+    EditComponent,
+    SafeURLPipe
   ],
   imports: [
     CommonModule,

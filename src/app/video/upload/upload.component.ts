@@ -41,6 +41,9 @@ export class UploadComponent implements OnDestroy {
   mode: ProgressBarMode = 'determinate';
   value = 0
   showProgressBar = false
+  isInProccess = false
+  // screenshots
+  screenshots: string[] = []
 
   //form
   title = new FormControl('', {
@@ -82,8 +85,10 @@ export class UploadComponent implements OnDestroy {
     if (!this.file || this.file.type !== "video/mp4") {
       return
     }
+    this.isInProccess = true
+    this.screenshots = await this.ffmpegService.getScreenShots(this.file)
 
-    await this.ffmpegService.getScreenShots(this.file)
+    this.isInProccess = false
     this.isValidFileUploaded = true;
 
   }

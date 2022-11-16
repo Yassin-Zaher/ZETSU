@@ -13,7 +13,10 @@ export class FfmpegService {
     // store the files in the system
     this.ffmpeg.FS('writeFile', file.name, data)
 
-    const seconds = [1, 2, 3]
+    //ffprobe -i <file> -show_entries format=duration -v quiet -of csv="p=0"
+
+
+    const seconds = [1, 5, 9]
     const commands: string[] = []
     seconds.forEach((second) => {
       commands.push(// Input 
@@ -30,6 +33,25 @@ export class FfmpegService {
     await this.ffmpeg.run(
       ...commands
     )
+    const screenShots: string[] = []
+
+    seconds.forEach(second => {
+      const screenShotsFile = this.ffmpeg.FS(
+        'readFile', `ouput_0${second}.png`
+      )
+
+      const screenShotsBlob = new Blob(
+        [screenShotsFile.buffer], {
+        type: 'image/png'
+      }
+      )
+
+      const screenShotsUrl = URL.createObjectURL(screenShotsBlob)
+
+      screenShots.push(screenShotsUrl)
+    })
+
+    return screenShots
   }
 
   isReady = false
