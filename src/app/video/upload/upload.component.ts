@@ -43,7 +43,7 @@ export class UploadComponent implements OnDestroy {
   showProgressBar = false
   // screenshots
   screenshots: string[] = []
-
+  selectedScreenShot = ''
   //form
   title = new FormControl('', {
     validators: [Validators.required, Validators.minLength(3)],
@@ -88,6 +88,7 @@ export class UploadComponent implements OnDestroy {
       return
     }
     this.screenshots = await this.ffmpegService.getScreenShots(this.file)
+    this.selectedScreenShot = this.screenshots[0]
 
     this.isValidFileUploaded = true;
 
@@ -154,6 +155,13 @@ export class UploadComponent implements OnDestroy {
   redirectToClip(clipId: string) {
     this.router.navigate([`clip/${clipId}`])
   }
+
+  slectThumbnail($event: Event) {
+    this.selectedScreenShot = ($event.target as HTMLImageElement).src
+  }
+
+
+
 
 
 
