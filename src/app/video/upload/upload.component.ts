@@ -3,7 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AngularFireStorage, AngularFireUploadTask } from '@angular/fire/compat/storage';
 import { v4 as uuid } from 'uuid';
 import { ProgressBarMode } from '@angular/material/progress-bar';
-import { last, switchMap } from 'rxjs';
+import { combineLatest, forkJoin, last, switchMap } from 'rxjs';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import firebase from 'firebase/compat/app'
 import { Router } from '@angular/router';
@@ -42,6 +42,7 @@ export class UploadComponent implements OnDestroy {
   mode: ProgressBarMode = 'determinate';
   value = 0
   showProgressBar = false
+  imageProgressValue = 0
   // screenshots
   screenshots: string[] = []
   selectedScreenShot = ''
@@ -111,48 +112,66 @@ export class UploadComponent implements OnDestroy {
     this.task = this.storage.upload(clipPath, this.file);
 
     const clipRef = this.storage.ref(clipPath)
+    const screeShotRef = this.storage.ref(screenShotPath)
 
-    this.task.percentageChanges().subscribe(process => {
-      this.parcentage = process as number / 100
-      this.value = process as number
-    })
+    combineLatest([
+      this.task.percentageChanges(),
+      this.screenShotTask.percentageChanges()])
+      .subscribe((process) => {
+        const [clipProgress, screenSHotProgress] = process
 
-
-    this.task.snapshotChanges().pipe(
-      last(),
-      switchMap(() => clipRef.getDownloadURL())
-
-    ).subscribe({
-      next: async (url) => {
-        const clip = {
-          uid: this.user?.uid as string,
-          displayName: this.user?.displayName as string,
-          title: this.title.value,
-          fileName: `${clipFileName}.mp4`,
-          url,
-          timestamp: firebase.firestore.FieldValue.serverTimestamp()
+        if (!clipProgress || !screenSHotProgress) {
+          return
         }
-        this.clipSerive.storeClip(clip)
-
-        this.showProgressBar = false
-        this.alertColor = "bg-green-400"
-        this.alertMsg = "Success! your video is ready to be shared with others."
-
-        setTimeout(() => {
-          this.redirectToClip(clip.uid)
-        }, 1000)
-
-      },
-      error: (error) => {
-        this.videoFormGroup.enable()
-        this.showProgressBar = false
-        this.alertColor = "bg-red-400"
-        this.alertMsg = "Upload failed, please try again later!"
-        this.isInSubmition = false
+        const total = clipProgress + screenSHotProgress
+        this.parcentage = total as number / 200
+        this.value = total as number / 200
+      })
 
 
-      }
-    })
+
+
+    forkJoin([
+      this.task.snapshotChanges(),
+      this.screenShotTask.snapshotChanges()])
+      .pipe(
+        switchMap(() => forkJoin([
+          clipRef.getDownloadURL(),
+          screeShotRef.getDownloadURL()
+        ]))
+      ).subscribe({
+        next: async (urls) => {
+          const [clipUrl, screenShotUrl] = urls
+          const clip = {
+            uid: this.user?.uid as string,
+            displayName: this.user?.displayName as string,
+            title: this.title.value,
+            fileName: `${clipFileName}.mp4`,
+            url: clipUrl,
+            screenShotUrl,
+            timestamp: firebase.firestore.FieldValue.serverTimestamp()
+          }
+          this.clipSerive.storeClip(clip)
+
+          this.showProgressBar = false
+          this.alertColor = "bg-green-400"
+          this.alertMsg = "Success! your video is ready to be shared with others."
+
+          setTimeout(() => {
+            this.redirectToClip(clip.uid)
+          }, 1000)
+
+        },
+        error: (error) => {
+          this.videoFormGroup.enable()
+          this.showProgressBar = false
+          this.alertColor = "bg-red-400"
+          this.alertMsg = "Upload failed, please try again later!"
+          this.isInSubmition = false
+
+
+        }
+      })
 
   }
 
