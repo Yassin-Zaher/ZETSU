@@ -32,6 +32,7 @@ export class UploadComponent implements OnDestroy {
   // handling files 
   file: File | null = null;
   task?: AngularFireUploadTask;
+  screenShotTask?: AngularFireUploadTask
 
   // The user auth
   user: firebase.User | null = null
@@ -95,13 +96,17 @@ export class UploadComponent implements OnDestroy {
   }
 
 
-  uploadFile() {
+  async uploadFile() {
     this.showAlert = true
     this.isInSubmition = true
     this.showProgressBar = true
 
     const clipFileName = uuid()
     const clipPath = `clips/${clipFileName}.mp4`;
+
+    const screenShotBlob = await this.ffmpegService.createBlobFromUrl(this.selectedScreenShot)
+    const screenShotPath = `screenshots/${clipFileName}.png`
+    this.screenShotTask = this.storage.upload(screenShotPath, screenShotBlob)
 
     this.task = this.storage.upload(clipPath, this.file);
 
@@ -156,9 +161,7 @@ export class UploadComponent implements OnDestroy {
     this.router.navigate([`clip/${clipId}`])
   }
 
-  slectThumbnail($event: Event) {
-    this.selectedScreenShot = ($event.target as HTMLImageElement).src
-  }
+
 
 
 

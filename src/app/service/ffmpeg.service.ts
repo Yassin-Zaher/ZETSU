@@ -68,4 +68,11 @@ export class FfmpegService {
     this.isInProccess = false
     return screenShots
   }
+
+  async createBlobFromUrl(url: string) {
+    const response = await fetch(url)
+    const blob = await response.blob()
+
+    return blob
+  }
 }
