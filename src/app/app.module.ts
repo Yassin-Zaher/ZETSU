@@ -16,6 +16,7 @@ import { AboutComponent } from './about/about.component';
 import { VideoModule } from './video/video.module';
 import { ClipComponent } from './clip/clip.component';
 import { MatButtonModule } from '@angular/material/button';
+import { ClipListComponent } from './clip-list/clip-list.component';
 
 
 
@@ -31,7 +32,8 @@ const angularMaterial = [
     NavComponent,
     HomeComponent,
     AboutComponent,
-    ClipComponent
+    ClipComponent,
+    ClipListComponent
 
   ],
   imports: [

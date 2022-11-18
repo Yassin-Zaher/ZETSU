@@ -125,7 +125,7 @@ export class UploadComponent implements OnDestroy {
         }
         const total = clipProgress + screenSHotProgress
         this.parcentage = total as number / 200
-        this.value = total as number / 200
+        this.value = total as number / 2
       })
 
 
@@ -149,6 +149,7 @@ export class UploadComponent implements OnDestroy {
             fileName: `${clipFileName}.mp4`,
             url: clipUrl,
             screenShotUrl,
+            screenShotFileName: `${clipFileName}.png`,
             timestamp: firebase.firestore.FieldValue.serverTimestamp()
           }
           this.clipSerive.storeClip(clip)
