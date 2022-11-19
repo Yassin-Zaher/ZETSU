@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ClipService } from '../service/clip.service';
 
 @Component({
   selector: 'app-clip',
@@ -7,9 +8,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ClipComponent implements OnInit {
 
-  constructor() { }
 
   ngOnInit(): void {
+
   }
 
 }
