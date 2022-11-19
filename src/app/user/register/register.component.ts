@@ -21,8 +21,7 @@ export class RegisterComponent {
     this.emailTaken.validate)
 
 
-  age = new FormControl('', [Validators.required, Validators.min(18), Validators.max(120)]
-    , [this.emailTaken.validate])
+  age = new FormControl('', [Validators.required, Validators.min(18), Validators.max(120)])
   password = new FormControl('',
     [Validators.required,
     Validators.pattern(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/gm)])

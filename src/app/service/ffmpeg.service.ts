@@ -41,7 +41,7 @@ export class FfmpegService {
         '-frames:v', '1', // how many frames
         '-filter:v', 'scale=510:-1',  // the image
         // ouput
-        `ouput_0${second}.png`)
+        `output_${second}.png`)
     })
 
 
@@ -52,7 +52,7 @@ export class FfmpegService {
 
     seconds.forEach(second => {
       const screenShotsFile = this.ffmpeg.FS(
-        'readFile', `ouput_0${second}.png`
+        'readFile', `output_${second}.png`
       )
 
       const screenShotsBlob = new Blob(
