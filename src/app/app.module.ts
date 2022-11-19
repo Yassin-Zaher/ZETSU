@@ -17,6 +17,7 @@ import { VideoModule } from './video/video.module';
 import { ClipComponent } from './clip/clip.component';
 import { MatButtonModule } from '@angular/material/button';
 import { ClipListComponent } from './clip-list/clip-list.component';
+import { TimestampDatePipe } from './pipes/timestamp-date.pipe';
 
 
 
@@ -33,7 +34,8 @@ const angularMaterial = [
     HomeComponent,
     AboutComponent,
     ClipComponent,
-    ClipListComponent
+    ClipListComponent,
+    TimestampDatePipe
 
   ],
   imports: [
