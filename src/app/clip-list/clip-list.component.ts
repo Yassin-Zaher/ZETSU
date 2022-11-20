@@ -13,12 +13,15 @@ export class ClipListComponent implements OnInit, OnDestroy {
 
   constructor(public clipService: ClipService) {
     this.clipService.getClips()
-  }
-
-  ngOnInit(): void {
     if (this.scrollable) {
       window.addEventListener('scroll', this.handleScroll)
     }
+  }
+
+  ngOnInit(): void {
+    /* if (this.scrollable) {
+      window.addEventListener('scroll', this.handleScroll)
+    } */
   }
 
 
@@ -37,6 +40,8 @@ export class ClipListComponent implements OnInit, OnDestroy {
 
     if (buttomOfWindow) {
       this.clipService.getClips()
+      console.log("Buttom of Page");
+
 
     }
 
