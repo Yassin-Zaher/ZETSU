@@ -6,14 +6,16 @@ import { ActivatedRouteSnapshot, Resolve, Router, RouterStateSnapshot } from '@a
 import { BehaviorSubject, combineLatest, Observable, of } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 import { IClip } from '../models/clip.model';
+import firebase from 'firebase/compat/app'
 
 @Injectable({
   providedIn: 'root'
 })
 export class ClipService implements Resolve<IClip | null> {
-  private clipsCollection: AngularFirestoreCollection<IClip>;
+  public clipsCollection: AngularFirestoreCollection<IClip>;
   pageClips: IClip[] = []
   pendingRequest = false
+  clip?: IClip
 
   constructor(private db: AngularFirestore,
     private auth: AngularFireAuth,
@@ -108,8 +110,10 @@ export class ClipService implements Resolve<IClip | null> {
   }
 
 
-  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-    return this.clipsCollection.doc(route.params['id'])
+  resolve = (route: ActivatedRouteSnapshot, state: RouterStateSnapshot) => {
+    console.log(route.params.id);
+
+    return this.clipsCollection.doc(route.params.id)
       .get()
       .pipe(
         map(snapshot => {
@@ -124,5 +128,7 @@ export class ClipService implements Resolve<IClip | null> {
         })
       )
   }
+
+
 
 }
