@@ -4,7 +4,7 @@ import { BehaviorSubject } from 'rxjs';
 import { IClip } from 'src/app/models/clip.model';
 import { ClipService } from 'src/app/service/clip.service';
 import { ModalService } from 'src/app/service/modal.service';
-
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 
 
@@ -26,7 +26,8 @@ export class ManageComponent implements OnInit {
   constructor(private router: Router,
     private route: ActivatedRoute,
     private clipService: ClipService,
-    private modal: ModalService) {
+    private modal: ModalService,
+    private matSnackBar: MatSnackBar) {
     this.sort$ = new BehaviorSubject(this.videoOrder)
   }
 
@@ -94,7 +95,7 @@ export class ManageComponent implements OnInit {
     })
   }
 
-  async copyToCliboard($event: MouseEvent, docId: string | undefined) {
+  async copyToCliboard($event: MouseEvent, docId: string | undefined, message: string, action: string) {
     $event.preventDefault()
 
     if (!docId) {
@@ -105,7 +106,9 @@ export class ManageComponent implements OnInit {
 
     await navigator.clipboard.writeText(url)
 
-    alert('link Copied')
+    this.matSnackBar.open(message, action, {
+      duration: this.durationInSeconds * 1000,
+    })
 
 
 

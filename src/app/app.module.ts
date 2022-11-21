@@ -18,13 +18,15 @@ import { ClipComponent } from './clip/clip.component';
 import { MatButtonModule } from '@angular/material/button';
 import { ClipListComponent } from './clip-list/clip-list.component';
 import { TimestampDatePipe } from './pipes/timestamp-date.pipe';
+import { MatSnackBarModule } from '@angular/material/snack-bar'
 
 
 
 
 
 const angularMaterial = [
-  MatButtonModule
+  MatButtonModule,
+  MatSnackBarModule
 ]
 
 @NgModule({
