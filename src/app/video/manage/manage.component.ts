@@ -1,9 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
 import { IClip } from 'src/app/models/clip.model';
 import { ClipService } from 'src/app/service/clip.service';
 import { ModalService } from 'src/app/service/modal.service';
+
+
+
+
 
 @Component({
   selector: 'app-manage',
@@ -11,10 +15,13 @@ import { ModalService } from 'src/app/service/modal.service';
   styleUrls: ['./manage.component.css']
 })
 export class ManageComponent implements OnInit {
+
+
   public videoOrder = '1';
   clips: IClip[] = [];
   activeClip: IClip | null = null
   sort$: BehaviorSubject<string>
+  durationInSeconds = 5;
 
   constructor(private router: Router,
     private route: ActivatedRoute,
@@ -86,5 +93,26 @@ export class ManageComponent implements OnInit {
       }
     })
   }
+
+  async copyToCliboard($event: MouseEvent, docId: string | undefined) {
+    $event.preventDefault()
+
+    if (!docId) {
+      return
+    }
+
+    const url = `${location.origin}/clip/${docId}`
+
+    await navigator.clipboard.writeText(url)
+
+    alert('link Copied')
+
+
+
+  }
+
+
+
+
 
 }

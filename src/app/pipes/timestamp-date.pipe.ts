@@ -10,7 +10,7 @@ export class TimestampDatePipe implements PipeTransform {
 
   transform(value: firebase.firestore.FieldValue | undefined) {
     if (!value) {
-      return
+      return ''
     }
     const date = (value as firebase.firestore.Timestamp).toDate()
     return this.pipeDate.transform(date, "mediumDate")

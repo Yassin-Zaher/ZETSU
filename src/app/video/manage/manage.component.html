@@ -25,19 +25,21 @@
 
                   <!-- Image -->
                   <a href="#">
-                        <img class="card-img-top rounded-tl-2xl w-full" src="assets/img/1.jpg">
+                        <img class="card-img-top rounded-tl-2xl w-full" [src]="clip.screenShotUrl" crossorigin>
                   </a>
 
                   <!-- Body -->
                   <div class="p-6 text-2xl">
 
                         <!-- Link -->
-                        <a href="#" class="font-bold mb-2">
+                        <a [routerLink]="['/', 'clip', clip.docId]" class="font-bold mb-2">
                               {{ clip.title }}
                         </a>
-                        <a href="#" class="bg-gray-400 text-white px-2 py-1 ml-2 text-sm rounded">
+
+                        <button mat-stroked-button (click)="copyToCliboard($event, clip.docId)"
+                              class="bg-gray-400 text-white px-2 py-1 ml-2 text-sm rounded">
                               Copy Link
-                        </a>
+                        </button>
 
                   </div>
 
