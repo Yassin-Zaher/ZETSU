@@ -1,5 +1,5 @@
 import { DatePipe } from '@angular/common';
-import { Component, ElementRef, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
+import { Component, ElementRef, AfterViewInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import videojs from 'video.js';
 import { IClip } from '../models/clip.model';
@@ -12,7 +12,7 @@ import { IClip } from '../models/clip.model';
   encapsulation: ViewEncapsulation.None,
   providers: [DatePipe]
 })
-export class ClipComponent implements OnInit {
+export class ClipComponent implements AfterViewInit {
 
 
   @ViewChild('videoPlayer', { static: true }) target?: ElementRef
@@ -24,7 +24,7 @@ export class ClipComponent implements OnInit {
 
   }
 
-  ngOnInit(): void {
+  ngAfterViewInit(): void {
     this.player = videojs(this.target?.nativeElement)
 
     this.route.data.subscribe(data => {

@@ -16,6 +16,10 @@ const routes: Routes = [
       clip: ClipService
     }
   },
+  {
+    path: '',
+    loadChildren: async () => (await import('./video/video.module')).VideoModule
+  },
   { path: '**', component: PageNotFoundComponent }
 ];
 

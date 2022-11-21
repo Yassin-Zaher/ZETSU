@@ -13,7 +13,6 @@ import { AngularFireStorageModule } from '@angular/fire/compat/storage';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { HomeComponent } from './home/home.component';
 import { AboutComponent } from './about/about.component';
-import { VideoModule } from './video/video.module';
 import { ClipComponent } from './clip/clip.component';
 import { MatButtonModule } from '@angular/material/button';
 import { ClipListComponent } from './clip-list/clip-list.component';
@@ -47,7 +46,6 @@ const angularMaterial = [
     AngularFireAuthModule,
     BrowserAnimationsModule,
     AngularFirestoreModule,
-    VideoModule,
     AngularFireStorageModule,
     ...angularMaterial,
     AppRoutingModule
