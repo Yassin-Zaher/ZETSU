@@ -1,7 +1,7 @@
 ### Table of Contents  
 [Description](#Description)  
-[preview](#preview)  
-[user guide](#user guide) 
+[preview](#preview)    
+[user-guide](#user-guide)   
 [contribution](#contribution) 
 
 ## Description
@@ -16,7 +16,7 @@ ZETSU is a video scharing & uploading site containing standard features  that en
  - watching others videos
  - infinit scrolling
  - and more..!
-## user guide
+## user-guide
  - to upload a video you need to create an account first with the singUp form
  - the signUp form will create an account only if you provide valid informations otherwise the app will display warnings
  - after signing up the user will be redirected to the home page and two sections will be avaible for registred users
