@@ -1,14 +1,6 @@
 ### Table of Contents  
 [Description](#Description)  
 [preview](#preview)  
-[Installation](#Installation)   
-[Requirements](#Requirements)
-
-
-
-
-
-
 
 ## Description
 #### ZETSU is self-hosting video application where users can upload and share their gaming highlights with their friends built with the help of ZeroToMastery Angular Bootcamp, using thea latest angular featurs and with Rxjs and firebase.
